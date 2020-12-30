@@ -1,0 +1,6 @@
+Print out left right space up
+Board 
+board 20 x 10
+10px each
+
+Save top scores on localstorage
