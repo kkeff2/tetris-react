@@ -1,10 +1,13 @@
 import { CellType } from "../types/board";
 
-export const getBoard = (): CellType[][] => {
+export const getInitialBoard = (
+  width: number,
+  height: number
+): CellType[][] => {
   const board: CellType[][] = [];
-  for (let y = 0; y < 20; y++) {
+  for (let y = 0; y < height; y++) {
     const row: CellType[] = [];
-    for (let x = 0; x < 10; x++) {
+    for (let x = 0; x < width; x++) {
       row.push({ x, y });
     }
     board.push(row);

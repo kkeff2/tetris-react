@@ -10,16 +10,17 @@ interface Props {
 
 export const Cell = ({ x, y, tetronimo }: Props) => {
   useEffect(() => {
-    console.log("updated: ", `x: ${x} y:${y}`);
+    console.log("updated: ", `x: ${x} y:${y} tetro: ${tetronimo}`);
   });
   return <Wrapper tetronimo={tetronimo}>{`x: ${x} y:${y}`}</Wrapper>;
 };
 
 const Wrapper = styled.div`
+  font-size: 12px;
   border: 1px solid black;
   background: ${({ tetronimo }: { tetronimo?: Tetromino }) =>
     tetronimo ? "red" : "white"};
-  height: 50px;
-  width: 50px;
+  height: 30px;
+  width: 30px;
   color: rgba(0, 0, 0, 0.2);
 `;

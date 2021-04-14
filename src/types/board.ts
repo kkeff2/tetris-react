@@ -5,3 +5,5 @@ export interface CellType {
   y: number;
   tetromino?: Tetromino;
 }
+
+export type BoardType = CellType[][];

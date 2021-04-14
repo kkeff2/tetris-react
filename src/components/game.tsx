@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Board } from "./board";
+import { BoardType } from "./board";
 import { useOnMount } from "../utils/useOnMount";
 
 export const Game = () => {
@@ -26,7 +26,7 @@ export const Game = () => {
   return (
     <Wrapper>
       <h1>Tetris</h1>
-      <Board />
+      <BoardType />
     </Wrapper>
   );
 };

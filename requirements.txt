@@ -4,3 +4,16 @@ board 20 x 10
 10px each
 
 Save top scores on localstorage
+
+
+
+I : ----
+J : x
+    xxx
+L : 
+T :  x
+    xxx
+
+
+
+En aktiv tetro har {type, listOfCells}
