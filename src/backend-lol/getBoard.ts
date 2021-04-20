@@ -4,6 +4,7 @@ export const getInitialBoard = (
   width: number,
   height: number
 ): CellType[][] => {
+  console.log("created board");
   const board: CellType[][] = [];
   for (let y = 0; y < height; y++) {
     const row: CellType[] = [];

@@ -1,10 +1,10 @@
 import React from "react";
-import { Game } from "./components/game";
+import { KeyboardContainer } from "./components/keybaord-container";
 
 export const App = () => {
   return (
     <div>
-      <Game />
+      <KeyboardContainer />
     </div>
   );
 };

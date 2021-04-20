@@ -6,5 +6,5 @@ export function useOnMount(functionToCallOnMount: () => any) {
     if (typeof result === "function") {
       return result;
     }
-  }, []);
+  }, [functionToCallOnMount]);
 }

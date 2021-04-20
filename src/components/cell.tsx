@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Tetromino } from "../types/board";
 
@@ -8,12 +8,18 @@ interface Props {
   tetronimo?: Tetromino;
 }
 
-export const Cell = ({ x, y, tetronimo }: Props) => {
-  useEffect(() => {
-    console.log("updated: ", `x: ${x} y:${y} tetro: ${tetronimo}`);
-  });
+const CellComponent = ({ x, y, tetronimo }: Props) => {
+  // useEffect(() => {
+  //   console.log("updated: ", `x: ${x} y:${y} tetro: ${tetronimo}`);
+  // });
   return <Wrapper tetronimo={tetronimo}>{`x: ${x} y:${y}`}</Wrapper>;
 };
+
+const propsAreEqual = (prevProps: Props, nextProps: Props) => {
+  return prevProps.tetronimo === nextProps.tetronimo;
+};
+
+export const Cell = React.memo(CellComponent, propsAreEqual);
 
 const Wrapper = styled.div`
   font-size: 12px;

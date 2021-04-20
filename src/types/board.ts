@@ -7,3 +7,10 @@ export interface CellType {
 }
 
 export type BoardType = CellType[][];
+
+export type Direction = "0" | "90" | "180" | "270";
+
+export type ActiveTetromino = {
+  type: Tetromino;
+  direction: Direction;
+};
