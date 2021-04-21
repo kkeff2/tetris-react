@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { getInitialBoard } from "../backend-lol/getBoard";
-import { BoardType, Tetromino, Direction } from "../types/board";
+import { BoardType, TetroType, Tetro } from "../types/board";
 import { Board } from "./board";
-import { getTetroCells, getUpdatedBoard, isChangeAvailible } from "./utils";
+import {
+  getNewTetro,
+  getNextYCells,
+  getRandomTetroType,
+  getUpdatedBoard,
+  isGameOver,
+  isNextYPossible,
+} from "./utils";
 
-export const boardHeight = 20;
+export const boardHeight = 25;
 export const boardWidth = 10;
 
 export type GameState = {
-  x: number;
-  y: number;
-  tetro: Tetromino;
-  direction: Direction;
+  // Add current tetro
+  // Next tetro
+  activeTetro: Tetro;
+  nextTetroType: TetroType;
   board: BoardType;
+  isTetroComplete: boolean;
 };
 
 export const Game = () => {
@@ -20,12 +28,11 @@ export const Game = () => {
   // TODO: Borde bara finnas en counter som renderar om om när tiden går ut y timer
   // Hur göra med "sidoevents" knapptryck?
 
-  const isGameActive = true; //State later
+  const [isGameActive, setIsGameActive] = useState(true); //State later
   const [state, setState] = useState<GameState>({
-    x: 5,
-    y: 0,
-    tetro: "L",
-    direction: "0",
+    activeTetro: getNewTetro(getRandomTetroType()),
+    nextTetroType: getRandomTetroType(),
+    isTetroComplete: false,
     board: getInitialBoard(boardWidth, boardHeight),
   });
 
@@ -35,20 +42,46 @@ export const Game = () => {
     // Om aktiv har åkt "i botten" - ska nästa tetro triggas
     if (isGameActive) {
       setTimeout(() => {
-        if (isChangeAvailible({ ...state, y: state.y + 1 })) {
-          setState({ ...state, y: state.y + 1 });
-        } else {
+        if (state.isTetroComplete) {
+          // if() {
+
+          // }
           setState({
-            x: 5,
-            y: 0,
-            tetro: "L",
-            direction: "0",
-            board: getUpdatedBoard(state.board, getTetroCells(state)),
+            ...state,
+            isTetroComplete: false,
+            activeTetro: getNewTetro(state.nextTetroType, state.board),
+          });
+        } else if (isNextYPossible(state)) {
+          setState({
+            ...state,
+            activeTetro: {
+              ...state.activeTetro,
+              cells: getNextYCells(state.activeTetro.cells),
+            },
+          });
+        } else {
+          // Next tetro
+          const updatedBoard = getUpdatedBoard(
+            state.board,
+            state.activeTetro.cells
+          );
+          if (isGameOver(updatedBoard)) {
+            setIsGameActive(false);
+          }
+          setState({
+            ...state,
+            isTetroComplete: true,
+            board: updatedBoard,
           });
         }
       }, 25);
     }
   }, [state]);
 
-  return <Board board={getUpdatedBoard(state.board, getTetroCells(state))} />;
+  return (
+    <>
+      {!isGameActive && <div>GAME OVER</div>}
+      <Board board={getUpdatedBoard(state.board, state.activeTetro.cells)} />
+    </>
+  );
 };

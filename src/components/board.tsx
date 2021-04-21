@@ -11,9 +11,9 @@ export const BoardComponent = ({ board }: Props) => {
   return (
     <Wrapper>
       {board.map((cellRow, index) => (
-        <CellRow key={index}>
-          {cellRow.map(({ x, y, tetromino }) => (
-            <Cell key={`${x}${y}`} x={x} y={y} tetronimo={tetromino} />
+        <CellRow key={index} index={index}>
+          {cellRow.map(({ x, y, tetro }) => (
+            <Cell key={`${x}${y}`} x={x} y={y} tetro={tetro} />
           ))}
         </CellRow>
       ))}
@@ -33,5 +33,6 @@ const Wrapper = styled.div`
 `;
 
 const CellRow = styled.div`
-  display: flex;
+  display: ${(props: { index: number }) =>
+    props.index < 5 ? "none" : "flex"}; ;
 `;
