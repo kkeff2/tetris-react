@@ -23,6 +23,9 @@ export const KeyboardContainer = () => {
   useOnMount(() => {
     window.addEventListener<"keydown">("keydown", onKeyDown);
   });
+
+  console.log("Render key");
+
   return (
     <Wrapper>
       <h1>Tetris</h1>
